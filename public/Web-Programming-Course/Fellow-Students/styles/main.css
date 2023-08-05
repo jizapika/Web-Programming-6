@@ -1,0 +1,327 @@
+.page {
+    padding: 0 25px;
+}
+
+.page__head {
+    width: 100%;
+    height: 10%;
+    border: 1px solid #000;
+    position: sticky;
+    top: 0;
+}
+
+.header {
+    display: flex;
+    justify-content: flex-start;
+    background-color: #37b391;
+}
+
+.page__left-head {
+    width: 50%;
+    height: 100%;
+}
+
+.left-header {
+    display: flex;
+    justify-content: start;
+}
+
+.left-header__elem {
+    display: flex;
+    flex: 1;
+}
+
+.left-header__elem:hover {
+    background-color: lime;
+    transition: 0.5s;
+}
+
+.simple-block {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.left-header__logo {
+    height: 100%;
+    width: auto;
+}
+
+.logo__img {
+    height: 100%;
+}
+
+.left-header__user-name {
+    height: 100%;
+    width: 100%;
+}
+
+.user-name {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+}
+
+.user-name__text {
+    margin: auto;
+}
+
+.left-header__friends {
+    height: 100%;
+    width: 100%;
+}
+
+.user-friends {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+}
+
+.user-friends__text {
+    margin: auto;
+}
+
+.left-header__messages {
+    height: 100%;
+    width: 100%;
+}
+
+.user-messages {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+}
+
+.user-messages__text {
+    margin: auto;
+}
+
+.left-header__settings {
+    height: 100%;
+    width: 100%;
+}
+
+.user-settings {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+}
+
+.user-settings__text {
+    margin: auto;
+}
+
+.page__right-head {
+    display: flex;
+    width: 50%;
+}
+
+.right-header {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.right-header {
+    width: 50%;
+    height: 100%;
+    justify-content: flex-end;
+}
+
+.header-user-avatar {
+    height: 100%;
+}
+
+.page__main {
+    width: 100%;
+    min-height: 70%;
+    border: 1px solid #000;
+}
+
+.main {
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+    background-color: #37b391;
+}
+
+.main__about-user {
+    width: 85%;
+}
+
+.information-block {
+    display: flex;
+    justify-content: flex-start;
+    gap: 30px;
+}
+
+.main__user-information {
+    min-width: 25%;
+    max-width: 50%;
+    width: min-content;
+    border: 1px solid #000;
+}
+
+.user-information {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 20px;
+}
+
+.user-information__photo-link {
+    width: 100%;
+}
+
+.user-avatar {
+    width: 100%;
+    height: 100%;
+}
+
+.user-facts {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.user-facts__elem {
+    padding-left: 10px;
+    display: flex;
+    flex: 1;
+}
+
+.user-fact {
+    white-space: nowrap;
+}
+
+.main__user-content {
+    width: auto;
+}
+
+.user-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 20px;
+    overflow: hidden;
+}
+
+.user-content__photos-paragraph {
+    padding-top: 10px;
+}
+
+.user-content__photos {
+    height: 100px;
+    overflow-x: auto;
+    /* Hide scrollbar for IE, Edge and Firefox */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.user-content__photos::-webkit-scrollbar {
+    display: none;
+}
+
+.photos {
+    display: flex;
+    justify-content: flex-start;
+    gap: 5px;
+}
+
+.photos__photo-link {
+    height: 100%;
+}
+
+.photos__photo {
+    height: 100%;
+}
+
+.user-content__blog-paragraph {
+
+}
+
+.user-content__blog {
+    padding-top: 10px;
+}
+
+.blog {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 5px;
+}
+
+.user-content__post {
+
+}
+
+.post {
+    border: 1px solid #000;
+}
+
+.main__monetized-content {
+    width: 15%;
+    border: 1px solid #000;
+}
+
+.monetized-content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.monetized-content__photo-link {
+    width: 100%;
+}
+
+.monetized-content__photo {
+    width: 100%;
+}
+
+.warning {
+    margin: 5px;
+    color: red;
+    font-size: 25px;
+}
+
+.footer {
+    width: 100%;
+    height: 20%;
+    border: 1px solid #000;
+}
+
+@media (max-height: 500px) {
+    .header {
+        height: 50px;
+    }
+}
+
+@media (max-width: 1320px) {
+    .warning {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .warning {
+        font-size: 17px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .warning {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 800px) {
+    .warning {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 600px) {
+    .warning {
+        font-size: 10px;
+    }
+}

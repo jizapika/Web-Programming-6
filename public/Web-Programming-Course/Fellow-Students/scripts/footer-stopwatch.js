@@ -1,0 +1,1 @@
+document.getElementById("download speed").innerHTML = stopwatch()

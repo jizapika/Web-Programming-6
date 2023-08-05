@@ -1,0 +1,29 @@
+.messages__message {
+    margin: 10px;
+}
+
+.message-block {
+    border: 1px black solid;
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+}
+
+.message-block__avatar {
+    height: 100%;
+}
+
+.message-block__content {
+    margin: 10px 10px 10px 0;
+}
+
+.message-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.message-content__name {
+    font-weight: 600;
+}

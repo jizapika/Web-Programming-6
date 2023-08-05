@@ -1,0 +1,49 @@
+/* очищаем все отступы и границы */
+* {
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+/* меняем подсчёт ширины блока так, чтобы нам было удобнее верстать */
+*,*:before,*:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/* убираем линии обводки у некоторых браузеров */
+:focus,:active{outline: none;}
+a:focus,a:active{outline: none;}
+
+/* делаем блочными перечисленные теги */
+nav,footer,header,aside{display: block;}
+
+/* уравняем шрифты через html и body */
+html,body {
+    height: 100%;
+    width: 100%;
+    font-size: 100%;
+    line-height: 1;
+    font-size: 14px;
+    -ms-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
+/* Наследуем семейство шрифта для тегов форм */
+input,button,textarea {
+    font-family: inherit;
+}
+
+/* Уберём некоторые нежелаемые особенности для нижних тегов в разных браузерах */
+input::-ms-clear{display: none;}
+button{cursor: pointer;}
+button::-moz-focus-inner{padding: 0;border: 0;}
+a, a:visited{text-decoration: none;}
+a:hover{text-decoration: none;}
+ul li{list-style: none;}
+img{vertical-align: top;}
+
+/* Обнулим заголовки h */
+h1,h2,h3,h4,h5,h6{font-size: inherit; font-weight: 400;}
