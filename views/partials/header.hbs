@@ -3,33 +3,33 @@
     <a class="left-header__logo logo" href="https://github.com/jizapika" target="_blank">
       <img
         class="logo__img"
-        src="../../public/Web-Programming-Course/Fellow-Students/images/logo.jpg"
+        src="images/logo.jpg"
         alt=""
       >
     </a>
     <div class="left-header__elem simple-block">
-      <a class="left-header__user-name user-name" href="../pages/index.hbs">
+      <a class="left-header__user-name user-name" href="/index">
         <p class="user-name__text">
           Лев Чечулин
         </p>
       </a>
     </div>
     <div class="left-header_current-elem left-header__elem simple-block">
-      <a class="left-header__friends user-friends" href="../pages/friends.hbs">
+      <a class="left-header__friends user-friends" href="/friends">
         <p class="user-friends__text">
           Друзья
         </p>
       </a>
     </div>
     <div class="left-header__elem simple-block">
-      <a class="left-header__messages user-messages" href="../pages/messages.hbs">
+      <a class="left-header__messages user-messages" href="/messages">
         <p class="user-messages__text">
           Сообщения
         </p>
       </a>
     </div>
     <div class="left-header__elem simple-block">
-      <a class="left-header__settings user-settings" href="../pages/settings.hbs">
+      <a class="left-header__settings user-settings" href="/settings">
         <p class="user-settings__text">
           Настройки
         </p>
@@ -37,7 +37,8 @@
     </div>
   </div>
   <div class="page__right-head right-header">
-    {{>authorization_field}}
+    <!--{{>authorization_field}}-->
+    {{>login-field}}
   </div>
 </div>
 <script type="text/javascript" src="scripts/current-header-element.js"></script>

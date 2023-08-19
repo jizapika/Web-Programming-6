@@ -1,7 +1,7 @@
 import { Controller, Get, Render } from '@nestjs/common';
 import { AppService } from './app.service';
 
-@Controller('views/pages')
+@Controller()
 export class AppController {
   @Get()
   @Render('index')
@@ -12,7 +12,7 @@ export class AppController {
   @Get('/friends')
   @Render('friends')
   friends() {
-    return { message: 'Hello world!' };
+    return {message: 'Hello world!' };
   }
 
   @Get('/messages')

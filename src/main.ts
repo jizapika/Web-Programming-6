@@ -8,8 +8,8 @@ import * as hbs from 'hbs';
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
-  app.useStaticAssets(join(__dirname, '..', 'public', 'Web-Programming-Course'));
-  app.setBaseViewsDir(join(__dirname, '..', 'views', 'pages'));
+  app.useStaticAssets(join(__dirname, '..', 'public'));
+  app.setBaseViewsDir(join(__dirname, '..', 'views'));
   app.setViewEngine('hbs');
   hbs.registerPartials(join(__dirname, '..', 'views', 'partials'));
   app.useGlobalInterceptors(new ResponseTimeInterceptor());
