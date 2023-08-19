@@ -3,59 +3,12 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Друзья</title>
-		<link rel="stylesheet" href="../styles/cleaner.css">
-		<link rel="stylesheet" href="../styles/friends.css">
-		<script type="text/javascript" src="../scripts/pageStarter.js"></script>
+		<link rel="stylesheet" href="styles/cleaner.css">
+		<link rel="stylesheet" href="styles/friends.css">
+		<script type="text/javascript" src="scripts/pageStarter.js"></script>
 	</head>
 	<body class="page">
-	<div class="page__head header">
-		<div class="page__left-head left-header">
-			<a class="left-header__logo logo" href="https://github.com/jizapika" target="_blank">
-				<img
-								class="logo__img"
-								src="../images/logo.jpg"
-								alt=""
-				>
-			</a>
-			<div class="left-header__elem simple-block">
-				<a class="left-header__user-name user-name" href="index.html">
-					<p class="user-name__text">
-						Лев Чечулин
-					</p>
-				</a>
-			</div>
-			<div class="left-header_current-elem left-header__elem simple-block">
-				<a class="left-header__friends user-friends" href="friends.html">
-					<p class="user-friends__text">
-						Друзья
-					</p>
-				</a>
-			</div>
-			<div class="left-header__elem simple-block">
-				<a class="left-header__messages user-messages" href="messages.html">
-					<p class="user-messages__text">
-						Сообщения
-					</p>
-				</a>
-			</div>
-			<div class="left-header__elem simple-block">
-				<a class="left-header__settings user-settings" href="settings.html">
-					<p class="user-settings__text">
-						Настройки
-					</p>
-				</a>
-			</div>
-		</div>
-		<div class="page__right-head right-header">
-			<a href="index.html">
-				<img
-								class="header-user-avatar"
-								src="../images/avatar.jpg"
-								alt=""
-				>
-			</a>
-		</div>
-	</div>
+  {{>header}}
 	<div class="page__main main">
 		<div class="main__friends friends-block">
 			<p class="friends-block__friends-paragraph">
@@ -66,7 +19,7 @@
 					<div class="friend__friend-avatar friend-avatar">
 						<img
 										class="friend-avatar__image"
-										src="../images/friends-content/4.jpg"
+										src="images/friends-content/4.jpg"
 										alt=""
 						>
 					</div>
@@ -90,7 +43,7 @@
 					<div class="friend__friend-avatar friend-avatar">
 						<img
 										class="friend-avatar__image"
-										src="../images/friends-content/3.jpg"
+										src="images/friends-content/3.jpg"
 										alt=""
 						>
 					</div>
@@ -114,7 +67,7 @@
 					<div class="friend__friend-avatar friend-avatar">
 						<img
 										class="friend-avatar__image"
-										src="../images/friends-content/2.jpg"
+										src="images/friends-content/2.jpg"
 										alt=""
 						>
 					</div>
@@ -138,7 +91,7 @@
 					<div class="friend__friend-avatar friend-avatar">
 						<img
 										class="friend-avatar__image"
-										src="../images/friends-content/1.jpg"
+										src="images/friends-content/1.jpg"
 										alt=""
 						>
 					</div>
@@ -159,12 +112,6 @@
 			</div>
 		</div>
 	</div>
-	<div class="footer">
-		copyright ITMOStudents
-		<br/>
-		Страница была загружена за <span id="download speed"></span> ms
-		<script type="text/javascript" src="../scripts/footer-stopwatch.js"></script>
-		<script type="text/javascript" src="../scripts/current-header-element.js"></script>
-	</div>
+	{{>footer}}
 	</body>
 </html>

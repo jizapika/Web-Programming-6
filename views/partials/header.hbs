@@ -1,0 +1,43 @@
+<div class="page__head header">
+  <div class="page__left-head left-header">
+    <a class="left-header__logo logo" href="https://github.com/jizapika" target="_blank">
+      <img
+        class="logo__img"
+        src="../../public/Web-Programming-Course/Fellow-Students/images/logo.jpg"
+        alt=""
+      >
+    </a>
+    <div class="left-header__elem simple-block">
+      <a class="left-header__user-name user-name" href="../pages/index.hbs">
+        <p class="user-name__text">
+          Лев Чечулин
+        </p>
+      </a>
+    </div>
+    <div class="left-header_current-elem left-header__elem simple-block">
+      <a class="left-header__friends user-friends" href="../pages/friends.hbs">
+        <p class="user-friends__text">
+          Друзья
+        </p>
+      </a>
+    </div>
+    <div class="left-header__elem simple-block">
+      <a class="left-header__messages user-messages" href="../pages/messages.hbs">
+        <p class="user-messages__text">
+          Сообщения
+        </p>
+      </a>
+    </div>
+    <div class="left-header__elem simple-block">
+      <a class="left-header__settings user-settings" href="../pages/settings.hbs">
+        <p class="user-settings__text">
+          Настройки
+        </p>
+      </a>
+    </div>
+  </div>
+  <div class="page__right-head right-header">
+    {{>authorization_field}}
+  </div>
+</div>
+<script type="text/javascript" src="scripts/current-header-element.js"></script>

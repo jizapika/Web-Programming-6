@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Сообщения</title>
+	<link rel="stylesheet" href="styles/cleaner.css">
+	<link rel="stylesheet" href="styles/messages.css">
+	<script type="text/javascript" src="scripts/pageStarter.js"></script>
+</head>
+<body class="page">
+  {{>header}}
+  <div class="page__main main">
+    <div class="main__messages messages-block">
+      <p class="messages-block__paragraph">
+        Ваши сообщения:
+      </p>
+      <div id="default-picture"></div>
+      <div id="messages" class="messages-block__messages messages"></div>
+    </div>
+  </div>
+  {{>footer}}
+  <script type="text/javascript" src="scripts/messages-generating.js"></script>
+</body>
+</html>
