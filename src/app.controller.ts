@@ -1,12 +1,29 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Render } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
-
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Render('index')
+  root() {
+    return { message: 'Hello world!' };
+  }
+
+  @Get('/friends')
+  @Render('friends')
+  friends() {
+    return {message: 'Hello world!' };
+  }
+
+  @Get('/messages')
+  @Render('messages')
+  messages() {
+    return { message: 'Hello world!' };
+  }
+
+  @Get('/settings')
+  @Render('settings')
+  settings() {
+    return { message: 'Hello world!' };
   }
 }

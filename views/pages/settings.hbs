@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Настройки</title>
+	<link rel="stylesheet" href="styles/cleaner.css">
+	<link rel="stylesheet" href="styles/settings.css">
+	<script type="text/javascript" src="scripts/page-starter.js"></script>
+</head>
+	<body class="page">
+    {{>header}}
+    <div class="page__main main">
+      <div class="main__settings settings-block">
+        <p class="friends-paragraph">
+          Настройки:
+        </p>
+        <form action="" class="page__form form">
+          <button type="button" id="add column">
+            Прибавить столбик
+          </button> <br/>
+          <button type="button" id="add row">
+            Прибавить строчку
+          </button> <br/>
+          <button type="button" id="remove column">
+            Убрать столбик
+          </button> <br/>
+          <button type="button" id="remove row">
+            Убрать строчку
+          </button> <br/><br/>
+        </form>
+        <div class="page__result result">
+        </div>
+      </div>
+    </div>
+    {{>footer}}
+    <script type="text/javascript" src="scripts/table-constructor.js"></script>
+	</body>
+</html>
