@@ -1,8 +1,23 @@
-<button class="header-login-button">Log in</button>
-<a href="../pages/index.hbs">
-    <img
-            class="header-user-avatar"
-            src="images/no-authorization.jpg"
-            alt=""
-    >
-</a>
+<div class="page__right-head right-header">
+  <div class="right-header__elem simple-block">
+    <button class="header-login-button"> Log in </button>
+  </div>
+  <a href="/">
+      <img
+              class="header-user-avatar"
+              src="images/no-authorization.jpg"
+              alt=""
+      >
+  </a>
+</div>
+<style>
+  .header-login-button {
+    margin: 0 10px 0 10px;
+    background-color: rgba(0, 0, 0, 0);
+  }
+
+  .right-header__elem:hover {
+    background-color: lime;
+    transition: 0.5s;
+  }
+</style>
