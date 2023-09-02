@@ -26,4 +26,17 @@ export class AppController {
   settings() {
     return { message: 'Hello world!' };
   }
+
+  @Get('/7')
+  @Render('7')
+  7() {
+    return {message: 'Hello world!' };
+  }
+
+
+  @Get('/1-2')
+  @Render('1-2')
+  1_2() {
+    return {message: 'Hello world!' };
+  }
 }
