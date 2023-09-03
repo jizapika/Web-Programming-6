@@ -4,6 +4,9 @@ import { AppService } from "./app.service";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { join } from "path";
+import { PostModule } from "./post/post.module";
+import { CommentModule } from "./comment/comment.module";
+import { ProfileModule } from "./user_profile/user_profile.module";
 
 @Module({
   imports: [ConfigModule.forRoot({
@@ -25,7 +28,11 @@ import { join } from "path";
         entities: [join(__dirname, "**", "*.entity.{ts,js}")],
         synchronize: true
       })
-    })],
+    }),
+    CommentModule,
+    ProfileModule,
+    PostModule
+  ],
   controllers: [AppController],
   providers: [AppService]
 })
