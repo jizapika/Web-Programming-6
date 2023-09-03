@@ -64,7 +64,7 @@ export class PostController {
     return null;
   }
 
-  @Get('/get')
+  @Get('/user/:userId')
   @ApiOkResponse({ type: ListDto<PostDto> })
   @ApiBadRequestResponse({ type: ResponseError })
   @ApiForbiddenResponse({ type: ResponseError })
@@ -74,7 +74,7 @@ export class PostController {
     return null;
   }
 
-  @Get('/get')
+  @Get('/:id')
   @ApiOkResponse({ type: PostDto })
   @ApiBadRequestResponse({ type: ResponseError })
   @ApiForbiddenResponse({ type: ResponseError })

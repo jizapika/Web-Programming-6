@@ -29,7 +29,7 @@ export class ProfileController {
     return null;
   }
 
-  @Get('/get')
+  @Get('/:userId')
   @ApiOkResponse({ type: ProfileDto })
   @ApiBadRequestResponse({ type: ResponseError })
   @ApiForbiddenResponse({ type: ResponseError })

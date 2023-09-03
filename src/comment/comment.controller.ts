@@ -53,7 +53,7 @@ export class CommentController {
     return null;
   }
 
-  @Get('/get')
+  @Get('/post/:postId')
   @ApiOkResponse({ type: ListDto<CommentDto> })
   @ApiBadRequestResponse({ type: ResponseError })
   @ApiForbiddenResponse({ type: ResponseError })
@@ -63,7 +63,7 @@ export class CommentController {
     return null;
   }
 
-  @Get('/get')
+  @Get('/:id')
   @ApiOkResponse({ type: CommentDto })
   @ApiBadRequestResponse({ type: ResponseError })
   @ApiForbiddenResponse({ type: ResponseError })
