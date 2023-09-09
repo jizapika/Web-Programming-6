@@ -1,11 +1,13 @@
 import { NestFactory } from '@nestjs/core';
 import { join } from 'path';
 import { AppModule } from './app.module';
+import supertokens from 'supertokens-node';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { ResponseTimeInterceptor } from "./interceptor";
 import * as hbs from 'hbs';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
+import { SupertokensExceptionFilter } from './auth/auth.filter';
 
 function setupSwagger(app: INestApplication) {
   const opts = new DocumentBuilder()
@@ -29,6 +31,13 @@ async function bootstrap() {
   app.setViewEngine('hbs');
   hbs.registerPartials(join(__dirname, '..', 'views', 'partials'));
   app.useGlobalInterceptors(new ResponseTimeInterceptor());
+  app.useGlobalFilters(new SupertokensExceptionFilter());
+
+  app.enableCors({
+    origin: ['http://locahost:3000'],
+    allowedHeaders: ['content-type', ...supertokens.getAllCORSHeaders()],
+    credentials: true,
+  });
 
   const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
 

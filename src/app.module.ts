@@ -7,11 +7,26 @@ import { join } from "path";
 import { PostModule } from "./post/post.module";
 import { CommentModule } from "./comment/comment.module";
 import { ProfileModule } from "./user_profile/user_profile.module";
+import { AuthModule } from "./auth/auth.module";
 
 @Module({
-  imports: [ConfigModule.forRoot({
-    envFilePath: ".env"
-  }),
+  imports: [
+    AuthModule.forRoot({
+      // https://try.supertokens.com is for demo purposes. Replace this with the address of your core instance (sign up on supertokens.com), or self host a core.
+      connectionURI: "https://try.supertokens.com",
+      // apiKey: <API_KEY(if configured)>,
+      appInfo: {
+        // Learn more about this on https://supertokens.com/docs/thirdparty/appinfo
+        appName: "Web-Programming-6",
+        apiDomain: "http://locahost:8080",
+        websiteDomain: "http://locahost:3000",
+        apiBasePath: "/auth",
+        websiteBasePath: "/auth"
+      }
+    }),
+    ConfigModule.forRoot({
+      envFilePath: ".env"
+    }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -31,7 +46,8 @@ import { ProfileModule } from "./user_profile/user_profile.module";
     }),
     CommentModule,
     ProfileModule,
-    PostModule
+    PostModule,
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService]
