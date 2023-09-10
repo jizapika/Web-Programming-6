@@ -18,8 +18,8 @@ import { AuthModule } from "./auth/auth.module";
       appInfo: {
         // Learn more about this on https://supertokens.com/docs/thirdparty/appinfo
         appName: "Web-Programming-6",
-        apiDomain: "http://locahost:8080",
-        websiteDomain: "http://locahost:3000",
+        apiDomain: 'http://localhost:3000',
+        websiteDomain: 'http://localhost:3000',
         apiBasePath: "/auth",
         websiteBasePath: "/auth"
       }

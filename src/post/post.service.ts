@@ -6,53 +6,13 @@ import { PostDto } from "./dto/post.dto";
 
 @Injectable()
 export class PostService {
+  async createPost(userId: number, text: string) {
+      throw new Error("Method not implemented.");
+  }
   constructor(
     @InjectRepository(PostEntity)
     private postRepo: Repository<PostEntity>
   ) {
-  }
-
-  async getPosts(
-    postFilterDto: PostFilterDto,
-    pageOptionsDto: PageOptions
-  ): Promise<PageDto<PostDto>> {
-    let qb = this.postRepo
-      .createQueryBuilder("post")
-      .leftJoinAndSelect("post.author", "author");
-
-    qb = postFilterDto
-      .applyFilters(qb)
-      .orderBy("post.createdAt", pageOptionsDto.order)
-      .skip(pageOptionsDto.skip)
-      .take(pageOptionsDto.take);
-
-    const itemCount = await qb.getCount();
-    const { entities } = await qb.getRawAndEntities();
-
-    return new PageDto(entities, new PageMeta({ itemCount, pageOptionsDto }));
-  }
-
-  async getPost(id: number): Promise<PostWithAuthorDto> {
-    return this.postRepo
-      .createQueryBuilder("post")
-      .leftJoinAndSelect("post.author", "author")
-      .where("post.id = :id", { id })
-      .getOneOrFail();
-  }
-
-  async createPost(userId: number, text: string):
-    Promise<void> {
-    await this.postRepo
-      .createQueryBuilder()
-      .insert()
-      .into(PostEntity)
-      .values({
-        body: text,
-        name: createPostDto.name,
-        isPublic: createPostDto.isPublic,
-        author: { id: userId }
-      })
-      .execute();
   }
 
   async editPost(
@@ -77,5 +37,13 @@ export class PostService {
       .from(PostEntity)
       .where("id = :id", { id })
       .execute();
+  }
+
+  async getPostById(id: number): Promise<PostDto> {
+    throw new Error("Method not implemented.");
+  }
+
+  async getPostsByUser(userId: number): Promise<PostDto[]> {
+    throw new Error("Method not implemented.");
   }
 }
