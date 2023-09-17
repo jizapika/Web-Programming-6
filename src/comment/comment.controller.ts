@@ -5,6 +5,7 @@ import { ResponseError } from '../extra/error-response';
 import { SuccessResponse } from '../extra/success-response';
 import { AuthGuard } from '../auth/auth.guard';
 import { Session } from '../auth/session/session.decorator';
+import { SessionContainer } from "supertokens-node/recipe/session";
 import {
   ApiBadRequestResponse,
   ApiForbiddenResponse,
@@ -21,7 +22,7 @@ export class CommentController {
   constructor(private readonly commentService: CommentService) {}
 
   @Post('/add')
-  @UseGuards(AuthGuard)
+  @UseGuards(new AuthGuard())
   @ApiOkResponse({ type: SuccessResponse })
   @ApiBadRequestResponse({ type: ResponseError })
   @ApiForbiddenResponse({ type: ResponseError })
@@ -36,7 +37,7 @@ export class CommentController {
   }
 
   @Delete('/delete/:id')
-  @UseGuards(AuthGuard)
+  @UseGuards(new AuthGuard())
   @ApiOkResponse({ type: SuccessResponse })
   @ApiBadRequestResponse({ type: ResponseError })
   @ApiForbiddenResponse({ type: ResponseError })
@@ -49,7 +50,7 @@ export class CommentController {
   }
 
   @Post('/edit/:id')
-  @UseGuards(AuthGuard)
+  @UseGuards(new AuthGuard())
   @ApiOkResponse({ type: SuccessResponse })
   @ApiBadRequestResponse({ type: ResponseError })
   @ApiForbiddenResponse({ type: ResponseError })

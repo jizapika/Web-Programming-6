@@ -6,24 +6,11 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { join } from "path";
 import { PostModule } from "./post/post.module";
 import { CommentModule } from "./comment/comment.module";
-import { ProfileModule } from "./user_profile/user_profile.module";
+import { UserProfileModule } from "./user_profile/user_profile.module";
 import { AuthModule } from "./auth/auth.module";
 
 @Module({
   imports: [
-    AuthModule.forRoot({
-      // https://try.supertokens.com is for demo purposes. Replace this with the address of your core instance (sign up on supertokens.com), or self host a core.
-      connectionURI: "https://try.supertokens.com",
-      // apiKey: <API_KEY(if configured)>,
-      appInfo: {
-        // Learn more about this on https://supertokens.com/docs/thirdparty/appinfo
-        appName: "Web-Programming-6",
-        apiDomain: 'http://localhost:3000',
-        websiteDomain: 'http://localhost:3000',
-        apiBasePath: "/auth",
-        websiteBasePath: "/auth"
-      }
-    }),
     ConfigModule.forRoot({
       envFilePath: ".env"
     }),
@@ -44,10 +31,21 @@ import { AuthModule } from "./auth/auth.module";
         synchronize: true
       })
     }),
+    AuthModule.forRoot({
+      connectionUri: process.env.SUPERTOKENS_CONNECTION_URI,
+      apiKey: process.env.SUPERTOKENS_API_KEY,
+      appInfo: {
+        // Learn more about this on https://supertokens.com/docs/thirdparty/appinfo
+        appName: "Web-Programming-6",
+        apiDomain: 'http://localhost:3000',
+        websiteDomain: 'http://localhost:3000',
+        apiBasePath: "/auth",
+        websiteBasePath: "/auth"
+      }
+    }),
     CommentModule,
-    ProfileModule,
-    PostModule,
-    AuthModule
+    UserProfileModule,
+    PostModule
   ],
   controllers: [AppController],
   providers: [AppService]

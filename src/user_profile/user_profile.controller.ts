@@ -1,10 +1,11 @@
 import { Get, Post, Param, Controller, Body, UseGuards } from "@nestjs/common";
-import { ProfileService } from "./user_profile.service";
-import { ProfileDto } from "./dto/profile.dto";
+import { UserProfileService } from "./user_profile.service";
+import { UserProfileDto } from "./dto/profile.dto";
 import { SuccessResponse } from "../extra/success-response";
 import { ResponseError } from "../extra/error-response";
 import { AuthGuard } from "../auth/auth.guard";
 import { Session } from "../auth/session/session.decorator";
+import { SessionContainer } from "supertokens-node/recipe/session";
 import {
   ApiBadRequestResponse,
   ApiForbiddenResponse,
@@ -15,18 +16,18 @@ import {
 
 @ApiTags("profiles")
 @Controller("/profile")
-export class ProfileController {
-  constructor(private readonly profileService: ProfileService) {
+export class UserProfileController {
+  constructor(private readonly profileService: UserProfileService) {
   }
 
   @Post("/edit/:id")
-  @UseGuards(AuthGuard)
+  @UseGuards(new AuthGuard())
   @ApiOkResponse({ type: SuccessResponse })
   @ApiBadRequestResponse({ type: ResponseError })
   @ApiForbiddenResponse({ type: ResponseError })
   @ApiInternalServerErrorResponse({ type: ResponseError })
   async editProfile(
-    @Session() session,
+    @Session() session: SessionContainer,
     @Param("id") id: number,
     @Body() editedProfile: string
   ) {
@@ -34,14 +35,14 @@ export class ProfileController {
   }
 
   @Get("/:userId")
-  @ApiOkResponse({ type: ProfileDto })
+  @ApiOkResponse({ type: UserProfileDto })
   @ApiBadRequestResponse({ type: ResponseError })
   @ApiForbiddenResponse({ type: ResponseError })
   @ApiInternalServerErrorResponse({ type: ResponseError })
   async readProfileByUser(
-    @Session() session,
+    @Session() session: SessionContainer,
     @Param("userId") userId: number
-  ): Promise<ProfileDto> {
+  ): Promise<UserProfileDto> {
     return null;
   }
 }

@@ -9,23 +9,19 @@ import { AuthMiddleware } from './auth.middleware';
 import { ConfigInjectionToken, AuthModuleConfig } from './config.interface';
 import { SupertokensService } from './supertokens/supertokens.service';
 
-@Module({
-  providers: [],
-  exports: [],
-  controllers: [],
-})
+@Module({})
 export class AuthModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(AuthMiddleware).forRoutes('*');
   }
 
-  static forRoot({ connectionURI, apiKey, appInfo }: AuthModuleConfig): DynamicModule {
+  static forRoot({ connectionUri, apiKey, appInfo }: AuthModuleConfig): DynamicModule {
     return {
       providers: [
         {
           useValue: {
             appInfo,
-            connectionURI,
+            connectionUri,
             apiKey,
           },
           provide: ConfigInjectionToken,
