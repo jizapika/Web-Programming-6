@@ -1,87 +1,109 @@
-import { Get, Post, Delete, Param, Controller, Query, Body } from '@nestjs/common';
-import { PostService } from './post.service';
-import { PostDto } from './dto/post.dto';
-import { ResponseError } from '../extra/error-response';
-import { SuccessResponse } from '../extra/success-response';
-import { ListDto } from '../extra/ListDto/list.dto';
+import { Get, Post, Delete, Param, Controller, Query, Body, UseGuards } from "@nestjs/common";
+import { PostService } from "./post.service";
+import { PostDto } from "./dto/post.dto";
+import { ResponseError } from "../extra/error-response";
+import { SuccessResponse } from "../extra/success-response";
+import { AuthGuard } from '../auth/auth.guard';
+import { Session } from '../auth/session/session.decorator';
+import { SessionContainer } from "supertokens-node/recipe/session";
 import {
   ApiBadRequestResponse,
   ApiForbiddenResponse,
   ApiInternalServerErrorResponse,
   ApiOkResponse,
-  ApiTags,
-} from '@nestjs/swagger';
+  ApiTags
+} from "@nestjs/swagger";
 
 
-@ApiTags('posts')
-@Controller('/post')
+@ApiTags("posts")
+@Controller("/post")
 export class PostController {
 
-  constructor(private readonly postService: PostService) {}
+  constructor(
+    private readonly postService: PostService,
+  ) {
+  }
 
-  @Post('/add')
+  @Post("/add")
+  @UseGuards(new AuthGuard())
   @ApiOkResponse({ type: SuccessResponse })
   @ApiBadRequestResponse({ type: ResponseError })
   @ApiForbiddenResponse({ type: ResponseError })
   @ApiInternalServerErrorResponse({ type: ResponseError })
   async addPost(
-      @Query('userId') userId: number,
-      @Body() text: string
-  ) {
-    return null;
+    @Session() session,
+    @Query("userId") userId: number,
+    @Body() text: string
+  ): Promise<SuccessResponse> {
+    await this.postService.createPost(userId, text);
+    return new SuccessResponse("ok");
   }
 
-  @Post('/like')
+  @Post("/like")
+  @UseGuards(new AuthGuard())
   @ApiOkResponse({ type: SuccessResponse })
   @ApiBadRequestResponse({ type: ResponseError })
   @ApiForbiddenResponse({ type: ResponseError })
   @ApiInternalServerErrorResponse({ type: ResponseError })
   async likePost(
-      @Query('postId') id: number,
-      @Query('likerId') likerId: number
+    @Session() session,
+    @Query("postId") id: number,
+    @Query("likerId") likerId: number
   ) {
     return null;
   }
 
-  @Delete('/delete/:id')
+  @Delete("/delete/:id")
+  @UseGuards(new AuthGuard())
   @ApiOkResponse({ type: SuccessResponse })
   @ApiBadRequestResponse({ type: ResponseError })
   @ApiForbiddenResponse({ type: ResponseError })
   @ApiInternalServerErrorResponse({ type: ResponseError })
-  async deletePost(@Param('id') id: number) {
-    return null;
+  async deletePost(
+    @Session() session,
+    @Param("id") id: number
+  ): Promise<SuccessResponse> {
+    await this.postService.deletePost(id);
+    return new SuccessResponse('ok');
   }
 
-  @Post('/edit/:id')
+  @Post("/edit/:id")
+  @UseGuards(new AuthGuard())
   @ApiOkResponse({ type: SuccessResponse })
   @ApiBadRequestResponse({ type: ResponseError })
   @ApiForbiddenResponse({ type: ResponseError })
   @ApiInternalServerErrorResponse({ type: ResponseError })
   async editPost(
-      @Param('id') id: number,
-      @Body() editedText: string
-  ) {
-    return null;
+    @Session() session,
+    @Param("id") id: number,
+    @Body() editedText: string
+  ): Promise<SuccessResponse> {
+    await this.postService.editPost(id, editedText);
+    return new SuccessResponse("ok");
   }
 
-  @Get('/user/:userId')
-  @ApiOkResponse({ type: ListDto<PostDto> })
+  @Get("/user/:userId")
+  @ApiOkResponse({ type: Array<PostDto> })
   @ApiBadRequestResponse({ type: ResponseError })
   @ApiForbiddenResponse({ type: ResponseError })
   @ApiInternalServerErrorResponse({ type: ResponseError })
-  async readPostsByUser(@Param('userId') userId: number)
-      : Promise<ListDto<PostDto>> {
-    return null;
+  async readPostsByUser(
+    @Session() session,
+    @Param("userId") userId: number
+  ): Promise<Array<PostDto>> {
+      return await this.postService.getPostsByUser(userId);
   }
 
-  @Get('/:id')
+  @Get("/:id")
   @ApiOkResponse({ type: PostDto })
   @ApiBadRequestResponse({ type: ResponseError })
   @ApiForbiddenResponse({ type: ResponseError })
   @ApiInternalServerErrorResponse({ type: ResponseError })
-  async readPostById(@Param('id') id: number)
-      : Promise<PostDto> {
-    return null;
+  async readPostById(
+    @Session() session,
+    @Param("id") id: number
+  ): Promise<PostDto> {
+    return await this.postService.getPostById(id);
   }
 }
 

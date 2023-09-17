@@ -1,9 +1,11 @@
-import { Get, Post, Delete, Param, Controller, Query, Body } from '@nestjs/common';
+import { Get, Post, Delete, Param, Controller, Query, Body, UseGuards } from '@nestjs/common';
 import { CommentService } from './comment.service';
 import { CommentDto } from './dto/comment.dto';
 import { ResponseError } from '../extra/error-response';
 import { SuccessResponse } from '../extra/success-response';
-import { ListDto } from '../extra/ListDto/list.dto';
+import { AuthGuard } from '../auth/auth.guard';
+import { Session } from '../auth/session/session.decorator';
+import { SessionContainer } from "supertokens-node/recipe/session";
 import {
   ApiBadRequestResponse,
   ApiForbiddenResponse,
@@ -20,11 +22,13 @@ export class CommentController {
   constructor(private readonly commentService: CommentService) {}
 
   @Post('/add')
+  @UseGuards(new AuthGuard())
   @ApiOkResponse({ type: SuccessResponse })
   @ApiBadRequestResponse({ type: ResponseError })
   @ApiForbiddenResponse({ type: ResponseError })
   @ApiInternalServerErrorResponse({ type: ResponseError })
   async addComment(
+    @Session() session,
     @Query('postId') postId: number,
     @Query('authorId') authorId: number,
     @Body() text: string
@@ -33,20 +37,26 @@ export class CommentController {
   }
 
   @Delete('/delete/:id')
+  @UseGuards(new AuthGuard())
   @ApiOkResponse({ type: SuccessResponse })
   @ApiBadRequestResponse({ type: ResponseError })
   @ApiForbiddenResponse({ type: ResponseError })
   @ApiInternalServerErrorResponse({ type: ResponseError })
-  async deleteComment(@Param('id') id: number) {
+  async deleteComment(
+    @Session() session,
+    @Param('id') id: number
+  ) {
     return null;
   }
 
   @Post('/edit/:id')
+  @UseGuards(new AuthGuard())
   @ApiOkResponse({ type: SuccessResponse })
   @ApiBadRequestResponse({ type: ResponseError })
   @ApiForbiddenResponse({ type: ResponseError })
   @ApiInternalServerErrorResponse({ type: ResponseError })
   async editComment(
+    @Session() session,
     @Param('id') id: number,
     @Body() editedText: string
   ) {
@@ -54,12 +64,14 @@ export class CommentController {
   }
 
   @Get('/post/:postId')
-  @ApiOkResponse({ type: ListDto<CommentDto> })
+  @ApiOkResponse({ type: Array<CommentDto> })
   @ApiBadRequestResponse({ type: ResponseError })
   @ApiForbiddenResponse({ type: ResponseError })
   @ApiInternalServerErrorResponse({ type: ResponseError })
-  async readCommentsByPost(@Param('postId') postId: number)
-    : Promise<ListDto<CommentDto>> {
+  async readCommentsByPost(
+    @Session() session,
+    @Param('postId') postId: number
+  ): Promise<Array<CommentDto>> {
     return null;
   }
 
@@ -68,8 +80,10 @@ export class CommentController {
   @ApiBadRequestResponse({ type: ResponseError })
   @ApiForbiddenResponse({ type: ResponseError })
   @ApiInternalServerErrorResponse({ type: ResponseError })
-  async readCommentById(@Param('id') id: number)
-    : Promise<CommentDto> {
+  async readCommentById(
+    @Session() session,
+    @Param('id') id: number
+  ): Promise<CommentDto> {
     return null;
   }
 }

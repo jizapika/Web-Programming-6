@@ -6,12 +6,14 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { join } from "path";
 import { PostModule } from "./post/post.module";
 import { CommentModule } from "./comment/comment.module";
-import { ProfileModule } from "./user_profile/user_profile.module";
+import { UserProfileModule } from "./user_profile/user_profile.module";
+import { AuthModule } from "./auth/auth.module";
 
 @Module({
-  imports: [ConfigModule.forRoot({
-    envFilePath: ".env"
-  }),
+  imports: [
+    ConfigModule.forRoot({
+      envFilePath: ".env"
+    }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -29,8 +31,20 @@ import { ProfileModule } from "./user_profile/user_profile.module";
         synchronize: true
       })
     }),
+    AuthModule.forRoot({
+      connectionUri: process.env.SUPERTOKENS_CONNECTION_URI,
+      apiKey: process.env.SUPERTOKENS_API_KEY,
+      appInfo: {
+        // Learn more about this on https://supertokens.com/docs/thirdparty/appinfo
+        appName: "Web-Programming-6",
+        apiDomain: 'http://localhost:3000',
+        websiteDomain: 'http://localhost:3000',
+        apiBasePath: "/auth",
+        websiteBasePath: "/auth"
+      }
+    }),
     CommentModule,
-    ProfileModule,
+    UserProfileModule,
     PostModule
   ],
   controllers: [AppController],
