@@ -1,7 +1,7 @@
-import { SupertokensExceptionFilter } from './auth.filter';
+import { AuthFilter } from './auth.filter';
 
 describe('AuthFilter', () => {
   it('should be defined', () => {
-    expect(new SupertokensExceptionFilter()).toBeDefined();
+    expect(new AuthFilter()).toBeDefined();
   });
 });

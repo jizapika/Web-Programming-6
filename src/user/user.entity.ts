@@ -15,6 +15,12 @@ export class UserEntity extends BaseEntity {
   })
   login: string;
 
+  @Column({
+    nullable: false,
+    unique: true
+  })
+  supertokensUserId: string;
+
   @OneToMany(() => PostEntity, p => p.author, {
     nullable: true,
     cascade: true

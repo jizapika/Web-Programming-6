@@ -1,0 +1,254 @@
+.sign-in-form, .sign-up-form {
+    display: flex;
+    flex-direction: column;
+    min-height: 95vh;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+}
+
+.sign-in-form-item, .sign-up-form-item {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+}
+
+.sign-in-form-item label, .sign-up-form-item label {
+    padding: 3px;
+    font-size: 17px;
+}
+
+.sign-in-form-item input, .sign-up-form-item input {
+    font-size: 15px;
+    padding: 5px;
+}
+
+.sign-in-form-item button, .sign-up-form-item button {
+    font-size: 15px;
+}
+
+.button-div {
+    padding-top: 10px;
+}
+
+.page {
+    padding: 0 25px;
+}
+
+.page__head {
+    width: 100%;
+    height: 10%;
+    border: 1px solid #000;
+    position: sticky;
+    top: 0;
+}
+
+.header {
+    display: flex;
+    justify-content: flex-start;
+    background-color: #37b391;
+}
+
+.page__left-head {
+    width: 50%;
+    height: 100%;
+}
+
+.left-header {
+    display: flex;
+    justify-content: start;
+}
+
+.left-header__elem {
+    display: flex;
+    flex: 1;
+}
+
+.left-header__elem:hover {
+    background-color: lime;
+    transition: 0.5s;
+}
+
+.simple-block {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.left-header__logo {
+    height: 100%;
+    width: auto;
+}
+
+.logo__img {
+    height: 100%;
+}
+
+.left-header__user-name {
+    height: 100%;
+    width: 100%;
+}
+
+.user-name {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+}
+
+.user-name__text {
+    margin: auto;
+}
+
+.left-header__friends {
+    height: 100%;
+    width: 100%;
+}
+
+.user-friends {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+}
+
+.user-friends__text {
+    margin: auto;
+}
+
+.left-header__messages {
+    height: 100%;
+    width: 100%;
+}
+
+.user-messages {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+}
+
+.user-messages__text {
+    margin: auto;
+}
+
+.left-header__settings {
+    height: 100%;
+    width: 100%;
+}
+
+.user-settings {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+}
+
+.user-settings__text {
+    margin: auto;
+}
+
+.page__right-head {
+    display: flex;
+    width: 50%;
+}
+
+.right-header {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.right-header {
+    width: 50%;
+    height: 100%;
+    justify-content: flex-end;
+}
+
+.header-user-avatar {
+    height: 100%;
+}
+
+.page__main {
+    width: 100%;
+    min-height: 70%;
+    border: 1px solid #000;
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    background-color: #37b391;
+}
+
+.main__friends {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    min-width: 50%;
+}
+
+.friends-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 10px;
+    background-color: #37b391;
+}
+
+.friends-block__friends-paragraph {
+    font-size: 30px;
+}
+
+.friends-block__friend {
+    border: 1px saddlebrown solid;
+}
+
+.friend {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    background-color: indianred;
+}
+
+.friend__left-part {
+    width: 50%;
+}
+
+.left-part {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.friend-avatar__image {
+    width: 80px;
+}
+
+.friend-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+}
+
+.friend-info__friend-name {
+    font-size: 22px;
+}
+
+.friend__right-part {
+    width: 50%;
+}
+
+.right-part {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.footer {
+    width: 100%;
+    height: 20%;
+    border: 1px solid #000;
+}
+
+@media (max-height: 500px) {
+    .header {
+        height: 50px;
+    }
+}

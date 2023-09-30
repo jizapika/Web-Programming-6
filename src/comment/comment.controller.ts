@@ -28,7 +28,7 @@ export class CommentController {
   @ApiForbiddenResponse({ type: ResponseError })
   @ApiInternalServerErrorResponse({ type: ResponseError })
   async addComment(
-    @Session() session,
+    @Session() session: SessionContainer,
     @Query('postId') postId: number,
     @Query('authorId') authorId: number,
     @Body() text: string
@@ -43,7 +43,7 @@ export class CommentController {
   @ApiForbiddenResponse({ type: ResponseError })
   @ApiInternalServerErrorResponse({ type: ResponseError })
   async deleteComment(
-    @Session() session,
+    @Session() session: SessionContainer,
     @Param('id') id: number
   ) {
     return null;
@@ -56,7 +56,7 @@ export class CommentController {
   @ApiForbiddenResponse({ type: ResponseError })
   @ApiInternalServerErrorResponse({ type: ResponseError })
   async editComment(
-    @Session() session,
+    @Session() session: SessionContainer,
     @Param('id') id: number,
     @Body() editedText: string
   ) {
@@ -69,7 +69,7 @@ export class CommentController {
   @ApiForbiddenResponse({ type: ResponseError })
   @ApiInternalServerErrorResponse({ type: ResponseError })
   async readCommentsByPost(
-    @Session() session,
+    @Session() session: SessionContainer,
     @Param('postId') postId: number
   ): Promise<Array<CommentDto>> {
     return null;
@@ -81,7 +81,7 @@ export class CommentController {
   @ApiForbiddenResponse({ type: ResponseError })
   @ApiInternalServerErrorResponse({ type: ResponseError })
   async readCommentById(
-    @Session() session,
+    @Session() session: SessionContainer,
     @Param('id') id: number
   ): Promise<CommentDto> {
     return null;

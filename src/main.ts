@@ -32,9 +32,9 @@ async function bootstrap() {
   hbs.registerPartials(join(__dirname, '..', 'views', 'partials'));
   app.useGlobalInterceptors(new ResponseTimeInterceptor());
   app.useGlobalFilters(new SupertokensExceptionFilter());
-
+  
   app.enableCors({
-    origin: ['http://locahost:3000'],
+    origin: [process.env.BACKEND_URI],
     allowedHeaders: ['content-type', ...supertokens.getAllCORSHeaders()],
     credentials: true,
   });
