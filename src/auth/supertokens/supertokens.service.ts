@@ -9,11 +9,11 @@ import { ConfigInjectionToken, AuthModuleConfig } from "../config.interface";
 export class SupertokensService {
   constructor(@Inject(ConfigInjectionToken) private config: AuthModuleConfig) {
     supertokens.init({
-      supertokens: {
-        connectionURI: config.connectionUri,
-        apiKey: config.apiKey
-      },
       appInfo: config.appInfo,
+      supertokens: {
+        connectionURI: config.connectionURI,
+        apiKey: config.apiKey,
+      },
       recipeList: [
         ThirdParty.init({
           signInAndUpFeature: {

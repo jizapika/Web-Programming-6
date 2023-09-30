@@ -1,11 +1,12 @@
-import { Get, Post, Delete, Param, Controller, Query, Body, UseGuards } from "@nestjs/common";
-import { PostService } from "./post.service";
-import { PostDto } from "./dto/post.dto";
+import { Post, Delete, Param, Controller, Query, Body, UseGuards, Get } from "@nestjs/common";
 import { ResponseError } from "../extra/error-response";
 import { SuccessResponse } from "../extra/success-response";
 import { AuthGuard } from '../auth/auth.guard';
 import { Session } from '../auth/session/session.decorator';
 import { SessionContainer } from "supertokens-node/recipe/session";
+import { UserService } from "./user.service";
+import { UserDto } from "./dto/user.dto";
+import { CreateUserDto } from "./dto/create-user.dto"
 import {
   ApiBadRequestResponse,
   ApiForbiddenResponse,
@@ -15,13 +16,22 @@ import {
 } from "@nestjs/swagger";
 
 
-@ApiTags("posts")
-@Controller("/post")
-export class PostController {
+@ApiTags("users")
+@Controller("/api/v1")
+export class UserController {
 
   constructor(
-    private readonly postService: PostService,
+    private readonly userService: UserService,
   ) {
+  }
+  
+  @Post('users')
+  @ApiOkResponse({ type: SuccessResponse })
+  @ApiBadRequestResponse({ type: ResponseError })
+  @ApiInternalServerErrorResponse({ type: ResponseError })
+  async createUser(@Body() userDto: CreateUserDto) {
+    await this.userService.createUser(userDto);
+    return new SuccessResponse('ok');
   }
 
   @Post("/add")
@@ -35,8 +45,14 @@ export class PostController {
     @Query("userId") userId: number,
     @Body() text: string
   ): Promise<SuccessResponse> {
-    await this.postService.createPost(userId, text);
     return new SuccessResponse("ok");
+  }
+
+  @Get('/supertokens/:id')
+  async getUserBySupertokensId(
+    @Param('id') supertokensId: string,
+  ): Promise<UserDto> {
+    return await this.userService.getUserBySupertokensId(supertokensId);
   }
 
   @Post("/like")
@@ -63,7 +79,6 @@ export class PostController {
     @Session() session: SessionContainer,
     @Param("id") id: number
   ): Promise<SuccessResponse> {
-    await this.postService.deletePost(id);
     return new SuccessResponse('ok');
   }
 
@@ -78,32 +93,7 @@ export class PostController {
     @Param("id") id: number,
     @Body() editedText: string
   ): Promise<SuccessResponse> {
-    await this.postService.editPost(id, editedText);
     return new SuccessResponse("ok");
-  }
-
-  @Get("/user/:userId")
-  @ApiOkResponse({ type: Array<PostDto> })
-  @ApiBadRequestResponse({ type: ResponseError })
-  @ApiForbiddenResponse({ type: ResponseError })
-  @ApiInternalServerErrorResponse({ type: ResponseError })
-  async readPostsByUser(
-    @Session() session: SessionContainer,
-    @Param("userId") userId: number
-  ): Promise<Array<PostDto>> {
-      return await this.postService.readPostsByUser(userId);
-  }
-
-  @Get("/:id")
-  @ApiOkResponse({ type: PostDto })
-  @ApiBadRequestResponse({ type: ResponseError })
-  @ApiForbiddenResponse({ type: ResponseError })
-  @ApiInternalServerErrorResponse({ type: ResponseError })
-  async readPostById(
-    @Session() session: SessionContainer,
-    @Param("id") id: number
-  ): Promise<PostDto> {
-    return await this.postService.readPostById(id);
   }
 }
 

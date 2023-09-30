@@ -4,6 +4,6 @@ export const ConfigInjectionToken = "ConfigInjectionToken";
 
 export type AuthModuleConfig = {
   appInfo: AppInfo;
-  connectionUri: string;
-  apiKey: string;
+  connectionURI: string;
+  apiKey?: string;
 }

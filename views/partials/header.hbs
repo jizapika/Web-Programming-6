@@ -3,17 +3,19 @@
     <a class="left-header__logo logo" href="https://github.com/jizapika" target="_blank">
       <img
         class="logo__img"
-        src="images/logo.jpg"
+        src="/images/logo.jpg"
         alt=""
       >
     </a>
-    <div class="left-header__elem simple-block">
-      <a class="left-header__user-name user-name" href="/">
-        <p class="user-name__text">
-          Лев Чечулин
-        </p>
-      </a>
-    </div>
+    {{#if me}}
+      <div class="left-header__elem simple-block">
+        <a class="left-header__user-name user-name" href="/">
+          <p class="user-name__text">
+            {{firstname}} {{lastname}}
+          </p>
+        </a>
+      </div>
+    {{/if}}
     <div class="left-header_current-elem left-header__elem simple-block">
       <a class="left-header__friends user-friends" href="/friends">
         <p class="user-friends__text">
@@ -36,7 +38,6 @@
       </a>
     </div>
   </div>
-    <!--{{>authorization_field}}-->
-    {{>login_field}}
+  {{>authorization_field}}
 </div>
 <script type="text/javascript" src="scripts/current-header-element.js"></script>

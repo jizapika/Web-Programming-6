@@ -1,17 +1,17 @@
 <div class="page__right-head right-header">
   <div class="right-header__elem simple-block">
-    <button class="header-login-button"> Log out </button>
+    <button class="header-logout-button" onclick="logout()"> Log out </button>
   </div>
   <a href="/">
     <img
       class="header-user-avatar"
-      src="images/avatar.jpg"
+      src="/images/avatar.jpg"
       alt=""
     >
   </a>
 </div>
 <style>
-  .header-login-button {
+  .header-logout-button {
     margin: 0 10px 0 10px;
     background-color: rgba(0, 0, 0, 0);
   }
@@ -21,3 +21,12 @@
     transition: 0.5s;
   }
 </style>
+<script>
+  async function logout() {
+    await fetch("/api/v1/auth/signout", {
+      method: "post"
+    });
+
+    window.location.href = "/";
+  }
+</script>
