@@ -35,7 +35,7 @@ export class UserController {
   }
 
   @Post("/add")
-  @UseGuards(new AuthGuard())
+  // @UseGuards(new AuthGuard())
   @ApiOkResponse({ type: SuccessResponse })
   @ApiBadRequestResponse({ type: ResponseError })
   @ApiForbiddenResponse({ type: ResponseError })
@@ -56,7 +56,7 @@ export class UserController {
   }
 
   @Post("/like")
-  @UseGuards(new AuthGuard())
+  // @UseGuards(new AuthGuard())
   @ApiOkResponse({ type: SuccessResponse })
   @ApiBadRequestResponse({ type: ResponseError })
   @ApiForbiddenResponse({ type: ResponseError })
@@ -70,7 +70,7 @@ export class UserController {
   }
 
   @Delete("/delete/:id")
-  @UseGuards(new AuthGuard())
+  // @UseGuards(new AuthGuard())
   @ApiOkResponse({ type: SuccessResponse })
   @ApiBadRequestResponse({ type: ResponseError })
   @ApiForbiddenResponse({ type: ResponseError })
@@ -83,7 +83,7 @@ export class UserController {
   }
 
   @Post("/edit/:id")
-  @UseGuards(new AuthGuard())
+  // @UseGuards(new AuthGuard())
   @ApiOkResponse({ type: SuccessResponse })
   @ApiBadRequestResponse({ type: ResponseError })
   @ApiForbiddenResponse({ type: ResponseError })

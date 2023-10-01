@@ -1,4 +1,4 @@
-import { Controller, Get, Render, Query, UseInterceptors, Headers } from "@nestjs/common";
+import { Controller, Get, Render, Query, UseInterceptors, Headers,UseGuards } from "@nestjs/common";
 import { ApiExcludeController } from "@nestjs/swagger";
 import { doReq, getRequestOptionsWithCookies } from "./extra/request";
 import { UserDto } from "./user/dto/user.dto";
@@ -7,9 +7,11 @@ import { PostService } from "./post/post.service";
 import { PageOptions } from "./extra/pagination/options";
 import { Session } from "./auth/session/session.decorator";
 import { SessionContainer } from "supertokens-node/recipe/session";
+import * as process from "process";
 import {
   CurrentUserInterceptor
 } from "./interceptor";
+import { AuthGuard } from "./auth/auth.guard";
 
 @Controller()
 @UseInterceptors(
@@ -23,12 +25,17 @@ export class AppController {
   ) {
   }
 
+
   @Get()
+  @UseGuards(new AuthGuard({
+    sessionRequired: true,
+  }))
   @Render("index")
   async root(
     @Session() session: SessionContainer,
     @Headers() headers
   ) {
+    console.log(session)
     const reqOpts = getRequestOptionsWithCookies(headers);
     if (session && session.getUserId()) {
       let curUser = await doReq<UserDto>(
@@ -47,11 +54,16 @@ export class AppController {
   }
 
   @Get("/friends")
+  @UseGuards(new AuthGuard({
+    sessionRequired: false,
+  }))
   @Render("friends")
   async friends(
     @Headers() headers,
+    @Session() session: SessionContainer,
     @Query() pageOptions: PageOptions
   ) {
+    console.log(session)
     return { message: "Hello world!" };
   }
 

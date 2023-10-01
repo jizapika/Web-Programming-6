@@ -33,6 +33,14 @@ export class AuthGuard implements CanActivate {
       throw err;
     }
 
+    console.log('guard', true)
+    console.log(resp)
+    return true;
+  }
+}
+@Injectable()
+export class AlwaysTrue implements CanActivate {
+  async canActivate(context: ExecutionContext): Promise<boolean> {
     return true;
   }
 }
