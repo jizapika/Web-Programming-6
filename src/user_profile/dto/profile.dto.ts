@@ -1,5 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { UserDto } from '../../user/dto/user.dto';
+import { ApiProperty } from "@nestjs/swagger";
 
 export class UserProfileDto {
   @ApiProperty()
@@ -25,7 +24,4 @@ export class UserProfileDto {
 
   @ApiProperty()
   university: string;
-
-  @ApiProperty()
-  author: UserDto;
 }

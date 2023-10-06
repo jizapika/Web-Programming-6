@@ -34,7 +34,7 @@
     "pg": "^8.11.3",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
-    "supertokens-node": "^15.2.1",
+    "supertokens-node": "^12.1.6",
     "typeorm": "^0.3.17"
   },
   "devDependencies": {
@@ -79,7 +79,7 @@
     "testEnvironment": "node"
   },
   "engines": {
-    "node": ">v16.18.0",
-    "npm": ">8.19.2"
+    "node": "19.3.0",
+    "npm": "9.4.2"
   }
 }

@@ -11,7 +11,7 @@ import * as process from "process";
 import {
   CurrentUserInterceptor
 } from "./interceptor";
-import { AuthGuard } from "./auth/auth.guard";
+import { AuthGuard, OptionalAuthGuard } from "./auth/auth.guard";
 
 @Controller()
 @UseInterceptors(
@@ -27,44 +27,23 @@ export class AppController {
 
 
   @Get()
-  @UseGuards(new AuthGuard({
-    sessionRequired: true,
-  }))
+  @UseGuards(OptionalAuthGuard)
   @Render("index")
   async root(
-    @Session() session: SessionContainer,
-    @Headers() headers
   ) {
-    console.log(session)
-    const reqOpts = getRequestOptionsWithCookies(headers);
-    if (session && session.getUserId()) {
-      let curUser = await doReq<UserDto>(
-        `${process.env.BACKEND_URI}/users/supertokens/${session.getUserId()}`,
-        reqOpts
-      );
-      const user = await this.userService.findUserById(session.getUserId());
-      const posts = await this.postService.findAll();
-      return {
-        firstname: user.profile.firstname,
-        lastname: user.profile.lastname,
+    const posts = [];
+    // const posts = await this.postService.findAll();
+    return {
         data: { posts }
-      };
-    }
-    return;
+    };
   }
 
   @Get("/friends")
-  @UseGuards(new AuthGuard({
-    sessionRequired: false,
-  }))
+  @UseGuards(OptionalAuthGuard)
   @Render("friends")
   async friends(
-    @Headers() headers,
-    @Session() session: SessionContainer,
-    @Query() pageOptions: PageOptions
   ) {
-    console.log(session)
-    return { message: "Hello world!" };
+    return
   }
 
   @Get("/messages")

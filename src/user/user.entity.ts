@@ -6,7 +6,9 @@ import { UserProfileEntity } from "../user_profile/user_profile.entity";
 
 @Entity({ name: "users" })
 export class UserEntity extends BaseEntity {
-  @OneToOne(() => UserProfileEntity, up => up.user)
+  @OneToOne(() => UserProfileEntity, up => up.user, {
+    cascade: true
+  })
   profile: UserProfileEntity;
 
   @Column({

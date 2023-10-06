@@ -1,12 +1,7 @@
-import {
-  Injectable,
-  NestInterceptor,
-  ExecutionContext,
-  CallHandler,
-} from '@nestjs/common';
-import { map, Observable } from 'rxjs';
-import { doReq } from './extra/request';
-import { UserDto } from './user/dto/user.dto';
+import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from "@nestjs/common";
+import { map, Observable } from "rxjs";
+import { doReq } from "./extra/request";
+import { UserWithProfileDto } from "./user/dto/user-with-profile.dto";
 
 export interface Response<T> {
   data: T;
@@ -36,14 +31,18 @@ export class CurrentUserInterceptor implements NestInterceptor {
     ctx: ExecutionContext,
     next: CallHandler,
   ): Promise<Observable<any>> {
-    const req = ctx.switchToHttp().getRequest();
+    const session = ctx.switchToHttp().getRequest().session;
 
     let me = null;
-    if (req.session) {
-      const userId = req.session.getUserId();
-      me = await doReq<UserDto>(
-        `${process.env.BACKEND_URI}/api/v1/users/supertokens/${userId}`,
-      );
+    if (session) {
+      const userId = session.getUserId();
+      try {
+        me = await doReq<UserWithProfileDto>(
+          `${process.env.BACKEND_URI}/api/v1/supertokens/${userId}`
+        );
+      } catch (err) {
+        console.log("Failed to get `me`, because " + err)
+      }
     }
 
     return next.handle().pipe(

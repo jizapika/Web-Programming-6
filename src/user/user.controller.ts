@@ -1,12 +1,10 @@
-import { Post, Delete, Param, Controller, Query, Body, UseGuards, Get } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Query } from "@nestjs/common";
 import { ResponseError } from "../extra/error-response";
 import { SuccessResponse } from "../extra/success-response";
-import { AuthGuard } from '../auth/auth.guard';
-import { Session } from '../auth/session/session.decorator';
+import { Session } from "../auth/session/session.decorator";
 import { SessionContainer } from "supertokens-node/recipe/session";
 import { UserService } from "./user.service";
-import { UserDto } from "./dto/user.dto";
-import { CreateUserDto } from "./dto/create-user.dto"
+import { CreateUserDto } from "./dto/create-user.dto";
 import {
   ApiBadRequestResponse,
   ApiForbiddenResponse,
@@ -14,6 +12,7 @@ import {
   ApiOkResponse,
   ApiTags
 } from "@nestjs/swagger";
+import { UserWithProfileDto } from "./dto/user-with-profile.dto";
 
 
 @ApiTags("users")
@@ -51,8 +50,9 @@ export class UserController {
   @Get('/supertokens/:id')
   async getUserBySupertokensId(
     @Param('id') supertokensId: string,
-  ): Promise<UserDto> {
-    return await this.userService.getUserBySupertokensId(supertokensId);
+  ): Promise<UserWithProfileDto> {
+    let newVar = await this.userService.getUserBySupertokensId(supertokensId);
+    return newVar;
   }
 
   @Post("/like")

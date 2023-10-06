@@ -8,23 +8,33 @@ export class UserProfileEntity extends BaseEntity {
   @JoinColumn()
   user: UserEntity;
 
-  @Column()
-  lastname: string;
-
   @Column({
     nullable: false
   })
   firstname: string;
 
-  @Column()
+  @Column({
+    nullable: false
+  })
+  lastname: string;
+
+  @Column({
+    nullable: true
+  })
   surname: string;
 
-  @Column()
+  @Column({
+    nullable: true
+  })
   city: string;
 
-  @Column()
+  @Column({
+    nullable: true
+  })
   school: string;
 
-  @Column()
+  @Column({
+    nullable: true
+  })
   university: string;
 }
