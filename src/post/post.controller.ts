@@ -25,7 +25,7 @@ export class PostController {
   }
 
   @Post("/add")
-  @UseGuards(new AuthGuard())
+  // // @UseGuards(new AuthGuard())
   @ApiOkResponse({ type: SuccessResponse })
   @ApiBadRequestResponse({ type: ResponseError })
   @ApiForbiddenResponse({ type: ResponseError })
@@ -40,7 +40,7 @@ export class PostController {
   }
 
   @Post("/like")
-  @UseGuards(new AuthGuard())
+  // @UseGuards(new AuthGuard())
   @ApiOkResponse({ type: SuccessResponse })
   @ApiBadRequestResponse({ type: ResponseError })
   @ApiForbiddenResponse({ type: ResponseError })
@@ -54,7 +54,7 @@ export class PostController {
   }
 
   @Delete("/delete/:id")
-  @UseGuards(new AuthGuard())
+  // @UseGuards(new AuthGuard())
   @ApiOkResponse({ type: SuccessResponse })
   @ApiBadRequestResponse({ type: ResponseError })
   @ApiForbiddenResponse({ type: ResponseError })
@@ -68,7 +68,7 @@ export class PostController {
   }
 
   @Post("/edit/:id")
-  @UseGuards(new AuthGuard())
+  // @UseGuards(new AuthGuard())
   @ApiOkResponse({ type: SuccessResponse })
   @ApiBadRequestResponse({ type: ResponseError })
   @ApiForbiddenResponse({ type: ResponseError })

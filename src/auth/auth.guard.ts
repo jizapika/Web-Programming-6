@@ -33,6 +33,43 @@ export class AuthGuard implements CanActivate {
       throw err;
     }
 
+    console.log('guard', true)
+    console.log(resp)
+    return true;
+  }
+}
+
+@Injectable()
+export class OptionalAuthGuard implements CanActivate {
+  async canActivate(context: ExecutionContext): Promise<boolean> {
+    const ctx = context.switchToHttp();
+
+    let err = undefined;
+    const resp = ctx.getResponse();
+    await verifySession({
+      sessionRequired: false,
+    })(ctx.getRequest(), resp, (res: any) => {
+      err = res;
+    });
+
+    if (resp.headersSent) {
+      throw new STError({
+        message: 'RESPONSE_SENT',
+        type: 'RESPONSE_SENT',
+      });
+    }
+
+    if (err) {
+      throw err;
+    }
+
+    return true;
+  }
+}
+
+@Injectable()
+export class AlwaysTrue implements CanActivate {
+  async canActivate(context: ExecutionContext): Promise<boolean> {
     return true;
   }
 }

@@ -9,7 +9,7 @@ export async function doReq<TResponse>(
 
   if (jsonEntity['error']) {
     const errorEntity = jsonEntity as ResponseError;
-    throw new HttpException(errorEntity.error, errorEntity.statusCode);
+    throw new HttpException(url + ": " + errorEntity.error, errorEntity.statusCode);
   }
 
   return jsonEntity as TResponse;

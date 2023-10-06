@@ -22,7 +22,7 @@ export class CommentController {
   constructor(private readonly commentService: CommentService) {}
 
   @Post('/add')
-  @UseGuards(new AuthGuard())
+  // @UseGuards(new AuthGuard())
   @ApiOkResponse({ type: SuccessResponse })
   @ApiBadRequestResponse({ type: ResponseError })
   @ApiForbiddenResponse({ type: ResponseError })
@@ -37,7 +37,7 @@ export class CommentController {
   }
 
   @Delete('/delete/:id')
-  @UseGuards(new AuthGuard())
+  // @UseGuards(new AuthGuard())
   @ApiOkResponse({ type: SuccessResponse })
   @ApiBadRequestResponse({ type: ResponseError })
   @ApiForbiddenResponse({ type: ResponseError })
@@ -50,7 +50,7 @@ export class CommentController {
   }
 
   @Post('/edit/:id')
-  @UseGuards(new AuthGuard())
+  // @UseGuards(new AuthGuard())
   @ApiOkResponse({ type: SuccessResponse })
   @ApiBadRequestResponse({ type: ResponseError })
   @ApiForbiddenResponse({ type: ResponseError })

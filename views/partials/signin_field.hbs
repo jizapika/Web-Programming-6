@@ -1,28 +1,29 @@
 <div class="page__right-head right-header">
   <div class="right-header__elem simple-block">
-    <button class="header-signin-button">
-      <a href="/auth/signin"> Sign in </a>
-    </button>
+    <a href="/auth/signin">
+      <p class="header-signin__text"> Sign in </p>
+    </a>
   </div>
   <div class="right-header__elem simple-block">
-    <button class="header-signup-button">
-      <a href="/auth/signup"> Sign up </a>
-    </button>
+    <a href="/auth/signup">
+      <p class="header-signout__text"> Sign up </p>
+    </a>
   </div>
   <a href="/">
-      <img
-              class="header-user-avatar"
-              src="/images/no-authorization.jpg"
-              alt=""
-      >
+    <img
+      class="header-user-avatar"
+      src="/images/no-authorization.jpg"
+      alt=""
+    >
   </a>
 </div>
 <style>
-  .header-signin-button {
+  .header-signout__text {
     margin: 0 10px 0 10px;
     background-color: rgba(0, 0, 0, 0);
   }
-  .header-signup-button {
+
+  .header-signin__text {
     margin: 0 10px 0 10px;
     background-color: rgba(0, 0, 0, 0);
   }

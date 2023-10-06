@@ -21,7 +21,7 @@ export class UserProfileController {
   }
 
   @Post("/edit/:id")
-  @UseGuards(new AuthGuard())
+  // @UseGuards(new AuthGuard())
   @ApiOkResponse({ type: SuccessResponse })
   @ApiBadRequestResponse({ type: ResponseError })
   @ApiForbiddenResponse({ type: ResponseError })

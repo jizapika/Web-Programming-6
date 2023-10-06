@@ -1,15 +1,29 @@
-import { Injectable, NestMiddleware } from "@nestjs/common";
-import { middleware } from 'supertokens-node/framework/express';
+import { Injectable, NestMiddleware, Req, Res } from '@nestjs/common';
+import { middleware } from 'supertokens-node/lib/build/framework/express';
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
-  supertokensMiddleware: any;
+  private readonly supertokensMiddleware: any;
 
   constructor() {
     this.supertokensMiddleware = middleware();
   }
 
-  use(req: Request, res: any, next: () => void) {
-    return this.supertokensMiddleware(req, res, next);
+  async use(@Req() req: any, @Res() res: any, next: () => void) {
+    const cookies = req.headers.cookie;
+    const accessToken = cookies
+      ?.split(';')
+      .find(c => c.includes('sAccessToken'));
+
+    const refreshToken = cookies
+      ?.split(';')
+      .find(c => c.includes('sRefreshToken'));
+
+    if (!accessToken && refreshToken) {
+      res.clearCookie('sRefreshToken');
+      res.redirect('/auth/signin');
+    }
+
+    this.supertokensMiddleware(req, res, next);
   }
 }

@@ -24,6 +24,9 @@ window.addEventListener('DOMContentLoaded', async function () {
       return;
     }
 
+    document.cookie = "sAccessToken=" + response.headers.get("St-Access-Token") + "; path=/";
+    document.cookie = "sRefreshToken=" + response.headers.get("St-Refresh-Token") + "; path=/";
+
     await storeNewUser(data.user.id);
     window.location.href = '/';
   });

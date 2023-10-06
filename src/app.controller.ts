@@ -1,4 +1,4 @@
-import { Controller, Get, Render, Query, UseInterceptors, Headers } from "@nestjs/common";
+import { Controller, Get, Render, Query, UseInterceptors, Headers,UseGuards } from "@nestjs/common";
 import { ApiExcludeController } from "@nestjs/swagger";
 import { doReq, getRequestOptionsWithCookies } from "./extra/request";
 import { UserDto } from "./user/dto/user.dto";
@@ -7,9 +7,11 @@ import { PostService } from "./post/post.service";
 import { PageOptions } from "./extra/pagination/options";
 import { Session } from "./auth/session/session.decorator";
 import { SessionContainer } from "supertokens-node/recipe/session";
+import * as process from "process";
 import {
   CurrentUserInterceptor
 } from "./interceptor";
+import { AuthGuard, OptionalAuthGuard } from "./auth/auth.guard";
 
 @Controller()
 @UseInterceptors(
@@ -23,36 +25,25 @@ export class AppController {
   ) {
   }
 
+
   @Get()
+  @UseGuards(OptionalAuthGuard)
   @Render("index")
   async root(
-    @Session() session: SessionContainer,
-    @Headers() headers
   ) {
-    const reqOpts = getRequestOptionsWithCookies(headers);
-    if (session && session.getUserId()) {
-      let curUser = await doReq<UserDto>(
-        `${process.env.BACKEND_URI}/users/supertokens/${session.getUserId()}`,
-        reqOpts
-      );
-      const user = await this.userService.findUserById(session.getUserId());
-      const posts = await this.postService.findAll();
-      return {
-        firstname: user.profile.firstname,
-        lastname: user.profile.lastname,
+    const posts = [];
+    // const posts = await this.postService.findAll();
+    return {
         data: { posts }
-      };
-    }
-    return;
+    };
   }
 
   @Get("/friends")
+  @UseGuards(OptionalAuthGuard)
   @Render("friends")
   async friends(
-    @Headers() headers,
-    @Query() pageOptions: PageOptions
   ) {
-    return { message: "Hello world!" };
+    return
   }
 
   @Get("/messages")
