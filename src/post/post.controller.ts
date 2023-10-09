@@ -1,10 +1,10 @@
-import { Get, Post, Delete, Param, Controller, Query, Body, UseGuards } from "@nestjs/common";
+import { Get, Post, Delete, Param, Controller, Query, Body, UseGuards, ForbiddenException } from "@nestjs/common";
 import { PostService } from "./post.service";
 import { PostDto } from "./dto/post.dto";
 import { ResponseError } from "../extra/error-response";
 import { SuccessResponse } from "../extra/success-response";
-import { AuthGuard } from '../auth/auth.guard';
-import { Session } from '../auth/session/session.decorator';
+import { AuthGuard } from "../auth/auth.guard";
+import { Session } from "../auth/session/session.decorator";
 import { SessionContainer } from "supertokens-node/recipe/session";
 import {
   ApiBadRequestResponse,
@@ -13,29 +13,39 @@ import {
   ApiOkResponse,
   ApiTags
 } from "@nestjs/swagger";
+import { UserService } from "src/user/user.service";
+import { CreatePostDto } from "./dto/create-post.dto";
 
 
 @ApiTags("posts")
 @Controller("/post")
 export class PostController {
-
   constructor(
     private readonly postService: PostService,
+    private readonly userService: UserService
   ) {
   }
 
   @Post("/add")
-  // // @UseGuards(new AuthGuard())
+ // @UseGuards(AuthGuard)
   @ApiOkResponse({ type: SuccessResponse })
   @ApiBadRequestResponse({ type: ResponseError })
   @ApiForbiddenResponse({ type: ResponseError })
   @ApiInternalServerErrorResponse({ type: ResponseError })
   async addPost(
-    @Session() session: SessionContainer,
-    @Query("userId") userId: number,
-    @Body() text: string
+    @Session() session,
+    @Body() createPostDto: CreatePostDto
   ): Promise<SuccessResponse> {
-    await this.postService.createPost(userId, text);
+    const curUser =
+      await this.userService.getUserWithProfileBySupertokensId(
+        session.getUserId()
+      );
+
+    if (curUser.id != createPostDto.authorId) {
+      throw new ForbiddenException("not enough rights");
+    }
+
+    await this.postService.createPost(createPostDto);
     return new SuccessResponse("ok");
   }
 
@@ -64,7 +74,7 @@ export class PostController {
     @Param("id") id: number
   ): Promise<SuccessResponse> {
     await this.postService.deletePost(id);
-    return new SuccessResponse('ok');
+    return new SuccessResponse("ok");
   }
 
   @Post("/edit/:id")
@@ -91,7 +101,7 @@ export class PostController {
     @Session() session: SessionContainer,
     @Param("userId") userId: number
   ): Promise<Array<PostDto>> {
-      return await this.postService.readPostsByUser(userId);
+    return await this.postService.readPostsByUser(userId);
   }
 
   @Get("/:id")

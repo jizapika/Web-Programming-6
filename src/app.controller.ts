@@ -59,12 +59,14 @@ export class AppController {
   }
 
   @Get("/messages")
+  @UseGuards(OptionalAuthGuard)
   @Render("messages")
   messages() {
     return { message: "Hello world!" };
   }
 
   @Get("/settings")
+  @UseGuards(OptionalAuthGuard)
   @Render("settings")
   settings() {
     return { message: "Hello world!" };

@@ -1,0 +1,13 @@
+{{#each data.posts}}
+  <div class="user-content__post post">
+    <div class="post__time">
+      {{this.createdAt}}
+    </div>
+    <div class="post__text">
+      {{this.text}}
+    </div>
+    <div class="post__likes">
+      168 likes
+    </div>
+  </div>
+{{/each}}
