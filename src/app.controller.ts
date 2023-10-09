@@ -29,23 +29,52 @@ export class AppController {
   @UseGuards(OptionalAuthGuard)
   @Render("index")
   async root(
+    @Session() session: SessionContainer
   ) {
-    const posts = [];
-    // const posts = await this.postService.findAll();
-    return {
+    if (session && session.getUserId()) {
+      const curUser =
+        await this.userService.getUserWithProfileBySupertokensId(
+          session.getUserId()
+        );
+      const posts = await this.postService.findByUserId(curUser.id);
+      return {
         data: { posts }
-    };
+      };
+    }
+
+    return;
   }
 
   @Get("/edit/profile")
   @UseGuards(AuthGuard)
   @Render("index")
   async editProfile(
+    @Session() session: SessionContainer
   ) {
-    const posts = [];
-    // const posts = await this.postService.findAll();
+    const curUser =
+      await this.userService.getUserWithProfileBySupertokensId(
+        session.getUserId()
+      );
+    const posts = await this.postService.findByUserId(curUser.id);
     return {
       edit_profile: true,
+      data: { posts }
+    };
+  }
+
+  @Get("/add/post")
+  @UseGuards(AuthGuard)
+  @Render("index")
+  async addPost(
+    @Session() session: SessionContainer
+  ) {
+    const curUser =
+      await this.userService.getUserWithProfileBySupertokensId(
+        session.getUserId()
+      );
+    const posts = await this.postService.findByUserId(curUser.id);
+    return {
+      add_post: true,
       data: { posts }
     };
   }
@@ -55,19 +84,31 @@ export class AppController {
   @Render("friends")
   async friends(
   ) {
-    return
+    return { message: "Hello world!" };
   }
 
   @Get("/messages")
+  @UseGuards(OptionalAuthGuard)
   @Render("messages")
   messages() {
     return { message: "Hello world!" };
   }
 
   @Get("/settings")
+  @UseGuards(OptionalAuthGuard)
   @Render("settings")
   settings() {
     return { message: "Hello world!" };
+  }
+
+  @Get("/all-posts")
+  @UseGuards(OptionalAuthGuard)
+  @Render("all_posts")
+  async allPosts() {
+    const posts = await this.postService.findAll();
+    return {
+      data: { posts }
+    };
   }
 
   @Get("/7")

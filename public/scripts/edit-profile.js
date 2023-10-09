@@ -12,8 +12,6 @@ window.addEventListener("DOMContentLoaded", async function() {
       university: document.querySelector("#university").value
     };
 
-    console.log(formFields);
-
     const response = await fetch(editProfileForm.action, {
       method: "POST",
       headers: { "Content-Type": "application/json" },

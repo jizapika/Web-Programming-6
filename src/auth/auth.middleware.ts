@@ -17,10 +17,10 @@ export class AuthMiddleware implements NestMiddleware {
 
     const refreshToken = cookies
       ?.split(';')
-      .find(c => c.includes('sRefreshToken'));
+      .find(c => c.includes('sIdRefreshToken'));
 
     if (!accessToken && refreshToken) {
-      res.clearCookie('sRefreshToken');
+      res.clearCookie('sIdRefreshToken');
       res.redirect('/auth/signin');
     }
 

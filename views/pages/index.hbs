@@ -19,7 +19,9 @@
     {{else}}
       {{>profile}}
     {{/if}}
-    {{>main_user_content}}
+    {{#if me}}
+      {{>main_user_content}}
+    {{/if}}
   </div>
   {{>monetized_block}}
 </div>
