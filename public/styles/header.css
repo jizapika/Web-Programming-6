@@ -107,6 +107,21 @@
     margin: auto;
 }
 
+.left-header__all-posts {
+    height: 100%;
+    width: 100%;
+}
+
+.user-all-posts {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+}
+
+.user-all-posts__text {
+    margin: auto;
+}
+
 .page__right-head {
     display: flex;
     width: 50%;

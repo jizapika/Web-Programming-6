@@ -31,7 +31,7 @@ export class AppController {
   async root(
   ) {
     const posts = [];
-    // const posts = await this.postService.findAll();
+    // const posts = await this.postService.findByUserId();
     return {
         data: { posts }
     };
@@ -43,7 +43,7 @@ export class AppController {
   async editProfile(
   ) {
     const posts = [];
-    // const posts = await this.postService.findAll();
+    // const posts = await this.postService.findByUserId();
     return {
       edit_profile: true,
       data: { posts }
@@ -70,6 +70,17 @@ export class AppController {
   @Render("settings")
   settings() {
     return { message: "Hello world!" };
+  }
+
+  @Get("/all-posts")
+  @UseGuards(OptionalAuthGuard)
+  @Render("all_posts")
+  createPost() {
+    const posts = [];
+    // const posts = await this.postService.findAll();
+    return {
+      data: { posts }
+    };
   }
 
   @Get("/7")
