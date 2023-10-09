@@ -1,0 +1,52 @@
+<div class="main__user-information user-information">
+  <a class="user-information__photo-link"
+     href="http://localhost:63342/Web-Programming-Course/Fellow-Students/index.html">
+    <img
+      class="user-avatar"
+      src="/images/avatar.jpg"
+      alt=""
+    >
+  </a>
+  {{#if me}}
+    <div class="user-facts user-information__some-facts">
+      {{#if me.profile.lastname}}
+        <div class="user-fact user-facts__elem">
+          Фамилия: {{me.profile.lastname}}
+        </div>
+      {{/if}}
+      {{#if me.profile.firstname}}
+        <div class="user-fact user-facts__elem">
+          Имя: {{me.profile.firstname}}
+        </div>
+      {{/if}}
+      {{#if me.profile.surname}}
+        <div class="user-fact user-facts__elem">
+          Отчество: {{me.profile.surname}}
+        </div>
+      {{/if}}
+      {{#if me.profile.city}}
+        <div class="user-fact user-facts__elem">
+          Город: {{me.profile.city}}
+        </div>
+      {{/if}}
+      {{#if me.profile.school}}
+        <div class="user-fact user-facts__elem">
+          Школа: {{me.profile.school}}
+        </div>
+      {{/if}}
+      {{#if me.profile.university}}
+        <div class="user-fact user-facts__elem">
+          Университет: {{me.profile.university}}
+        </div>
+      {{/if}}
+      {{#if me.id}}
+        <div class="user-fact user-facts__elem">
+          id: {{me.id}}
+        </div>
+      {{/if}}
+      <form action="/edit/profile">
+        <button>Изменить</button>
+      </form>
+    </div>
+  {{/if}}
+</div>

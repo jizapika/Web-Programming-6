@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Query } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Query, UseGuards } from "@nestjs/common";
 import { ResponseError } from "../extra/error-response";
 import { SuccessResponse } from "../extra/success-response";
 import { Session } from "../auth/session/session.decorator";
@@ -13,10 +13,12 @@ import {
   ApiTags
 } from "@nestjs/swagger";
 import { UserWithProfileDto } from "./dto/user-with-profile.dto";
+import { AuthGuard } from "src/auth/auth.guard";
+import { EditProfileDto } from "src/user_profile/dto/edit-profile.dto";
 
 
 @ApiTags("users")
-@Controller("/api/v1")
+@Controller("")
 export class UserController {
 
   constructor(
@@ -24,7 +26,7 @@ export class UserController {
   ) {
   }
   
-  @Post('users')
+  @Post('/api/v1/users')
   @ApiOkResponse({ type: SuccessResponse })
   @ApiBadRequestResponse({ type: ResponseError })
   @ApiInternalServerErrorResponse({ type: ResponseError })
@@ -47,13 +49,29 @@ export class UserController {
     return new SuccessResponse("ok");
   }
 
-  @Get('/supertokens/:id')
+  @Get('/api/v1/supertokens/:id')
   async getUserBySupertokensId(
     @Param('id') supertokensId: string,
   ): Promise<UserWithProfileDto> {
-    let newVar = await this.userService.getUserBySupertokensId(supertokensId);
+    let newVar =
+      await this.userService.getUserWithProfileBySupertokensId(supertokensId);
     return newVar;
   }
+  @Post("/users/:id/edit_profile")
+  @UseGuards(AuthGuard)
+  @ApiOkResponse({ type: SuccessResponse })
+  @ApiBadRequestResponse({ type: ResponseError })
+  @ApiForbiddenResponse({ type: ResponseError })
+  @ApiInternalServerErrorResponse({ type: ResponseError })
+  async editProfile(
+    @Session() session: SessionContainer,
+    @Body() editedProfile: EditProfileDto,
+    @Param("id") id: number,
+  ) {
+    editedProfile.userId = id;
+    await this.userService.editProfile(editedProfile);
+  }
+
 
   @Post("/like")
   // @UseGuards(new AuthGuard())
@@ -82,7 +100,7 @@ export class UserController {
     return new SuccessResponse('ok');
   }
 
-  @Post("/edit/:id")
+  @Post("users/edit_post/:id")
   // @UseGuards(new AuthGuard())
   @ApiOkResponse({ type: SuccessResponse })
   @ApiBadRequestResponse({ type: ResponseError })

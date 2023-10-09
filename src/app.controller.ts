@@ -25,7 +25,6 @@ export class AppController {
   ) {
   }
 
-
   @Get()
   @UseGuards(OptionalAuthGuard)
   @Render("index")
@@ -35,6 +34,19 @@ export class AppController {
     // const posts = await this.postService.findAll();
     return {
         data: { posts }
+    };
+  }
+
+  @Get("/edit/profile")
+  @UseGuards(AuthGuard)
+  @Render("index")
+  async editProfile(
+  ) {
+    const posts = [];
+    // const posts = await this.postService.findAll();
+    return {
+      edit_profile: true,
+      data: { posts }
     };
   }
 
