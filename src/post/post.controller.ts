@@ -27,13 +27,13 @@ export class PostController {
   }
 
   @Post("/add")
- // @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard)
   @ApiOkResponse({ type: SuccessResponse })
   @ApiBadRequestResponse({ type: ResponseError })
   @ApiForbiddenResponse({ type: ResponseError })
   @ApiInternalServerErrorResponse({ type: ResponseError })
   async addPost(
-    @Session() session,
+    @Session() session: SessionContainer,
     @Body() createPostDto: CreatePostDto
   ): Promise<SuccessResponse> {
     const curUser =
@@ -41,9 +41,7 @@ export class PostController {
         session.getUserId()
       );
 
-    if (curUser.id != createPostDto.authorId) {
-      throw new ForbiddenException("not enough rights");
-    }
+    createPostDto.authorId = curUser.id
 
     await this.postService.createPost(createPostDto);
     return new SuccessResponse("ok");
@@ -104,17 +102,17 @@ export class PostController {
     return await this.postService.readPostsByUser(userId);
   }
 
-  @Get("/:id")
-  @ApiOkResponse({ type: PostDto })
-  @ApiBadRequestResponse({ type: ResponseError })
-  @ApiForbiddenResponse({ type: ResponseError })
-  @ApiInternalServerErrorResponse({ type: ResponseError })
-  async readPostById(
-    @Session() session: SessionContainer,
-    @Param("id") id: number
-  ): Promise<PostDto> {
-    return await this.postService.readPostById(id);
-  }
+  // @Get("/:id")
+  // @ApiOkResponse({ type: PostDto })
+  // @ApiBadRequestResponse({ type: ResponseError })
+  // @ApiForbiddenResponse({ type: ResponseError })
+  // @ApiInternalServerErrorResponse({ type: ResponseError })
+  // async readPostById(
+  //   @Session() session: SessionContainer,
+  //   @Param("id") id: number
+  // ): Promise<PostDto> {
+  //   return await this.postService.readPostById(id);
+  // }
 }
 
 // add_post (userId, text) <- post

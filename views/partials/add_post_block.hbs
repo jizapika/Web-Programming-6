@@ -1,0 +1,24 @@
+<script src="/scripts/add-post.js"></script>
+{{#if add_post}}
+  <form class="add-post-form" action="/post/add">
+    <label for="text">
+      Напишите что-нибудь
+      <br/>
+      <textarea name="text" id="text" rows="4" cols="50" maxlength="200"></textarea>
+    </label>
+    <div class="add-post-form-item button-div">
+      <button type="submit">Запостить</button>
+    </div>
+  </form>
+  <div class="blog user-content__blog">
+    <form action="/">
+      <button type="submit">Отменить</button>
+    </form>
+  </div>
+{{else}}
+  <div class="blog user-content__blog">
+    <form action="/add/post">
+      <button>Новый пост</button>
+    </form>
+  </div>
+{{/if}}

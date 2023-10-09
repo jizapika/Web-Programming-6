@@ -1,5 +1,10 @@
 {{#each data.posts}}
   <div class="user-content__post post">
+    {{#if this.author.profile}}
+      <div class="post__author">
+        {{this.author.profile.firstname}} {{this.author.profile.lastname}}
+      </div>
+    {{/if}}
     <div class="post__time">
       {{this.createdAt}}
     </div>
@@ -7,7 +12,7 @@
       {{this.text}}
     </div>
     <div class="post__likes">
-      168 likes
+      0 likes
     </div>
   </div>
 {{/each}}
