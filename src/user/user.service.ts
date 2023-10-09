@@ -6,18 +6,65 @@ import { UserEntity } from "./user.entity";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UserProfileEntity } from "src/user_profile/user_profile.entity";
 import { UserWithProfileDto } from "./dto/user-with-profile.dto";
+import { EditProfileDto } from "src/user_profile/dto/edit-profile.dto";
 
 @Injectable()
 export class UserService {
+
   constructor(
     @InjectRepository(UserEntity)
     private userRepo: Repository<UserEntity>,
-    @InjectRepository(UserEntity)
+    @InjectRepository(UserProfileEntity)
     private profileRepo: Repository<UserProfileEntity>
   ) {
   }
 
-  async getUserBySupertokensId(supertokensUserId: string): Promise<UserWithProfileDto> {
+  async editProfile(
+    editedProfile: EditProfileDto
+  ) {
+    // const profile = await this.profileRepo
+    //   .createQueryBuilder("user_profile")
+    //   .where("user_profile.id = :id", { id: editedProfile.id })
+    //   .getOne();
+    // profile.firstname = editedProfile.firstname
+    // profile.lastname = editedProfile.lastname
+    // profile.surname = editedProfile.surname
+    // profile.city = editedProfile.city
+    // profile.school = editedProfile.school
+    // profile.university = editedProfile.university
+
+    // const profile = await this.profileRepo
+    //   .createQueryBuilder("user_profile")
+    //   .leftJoinAndSelect("user_profile.userId", "users")
+    //   .where("users.id = :id", { id: editedProfile.userId })
+    //   .getOne();
+    // profile.firstname = editedProfile.firstname
+    // profile.lastname = editedProfile.lastname
+    // profile.surname = editedProfile.surname
+    // profile.city = editedProfile.city
+    // profile.school = editedProfile.school
+    // profile.university = editedProfile.university
+    // await this.profileRepo.save(profile);
+
+    // await this.profileRepo.update({ user: {id: editedProfile.userId} }, editedProfile);
+
+
+    await this.profileRepo
+      .createQueryBuilder()
+      .update(UserProfileEntity)
+      .set({
+        firstname: editedProfile.firstname,
+        lastname: editedProfile.lastname,
+        surname: editedProfile.surname,
+        city: editedProfile.city,
+        school: editedProfile.school,
+        university: editedProfile.university
+      })
+      .where("userId = :id", { id: editedProfile.userId })
+      .execute();
+  }
+
+  async getUserWithProfileBySupertokensId(supertokensUserId: string): Promise<UserWithProfileDto> {
     const user = await this.userRepo
       .createQueryBuilder()
       .select("users")
@@ -39,17 +86,11 @@ export class UserService {
     return user;
   }
 
-  async findUserById(id) {
+  async findUserById(id : number) {
     return await this.userRepo
       .createQueryBuilder("user")
       .where("user.id = :id", { id })
       .getOneOrFail();
-  }
-
-  async checkPassword(password: string, login: string) {
-  }
-
-  async findUserByLoginReturnId(login: string) {
   }
 
   async createUser(userDto: CreateUserDto) {
@@ -103,10 +144,6 @@ export class UserService {
   //     throw new Error('Authentication failed');
   //   }
   // }
-
-  create(createUserDto: UserDto) {
-    return "This action adds a new user";
-  }
 
   findAll() {
     return `This action returns all user`;

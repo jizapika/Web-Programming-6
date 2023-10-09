@@ -15,13 +15,15 @@ import { PostService } from './post/post.service';
 import { PostController } from "./post/post.controller";
 import { PostEntity } from "./post/post.entity";
 import { UserEntity } from './user/user.entity';
+import { UserProfileEntity } from "./user_profile/user_profile.entity";
+import { CommentEntity } from "./comment/comment.entity";
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       envFilePath: ".env"
     }),
-    TypeOrmModule.forFeature([UserEntity, PostEntity]),
+    TypeOrmModule.forFeature([UserEntity, PostEntity,  UserProfileEntity, CommentEntity]),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],

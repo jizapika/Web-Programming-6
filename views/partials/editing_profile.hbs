@@ -1,0 +1,86 @@
+<script src="/scripts/edit-profile.js"></script>
+<div class="main__user-information user-information">
+  <a class="user-information__photo-link"
+     href="http://localhost:63342/Web-Programming-Course/Fellow-Students/index.html">
+    <img
+      class="user-avatar"
+      src="/images/avatar.jpg"
+      alt=""
+    >
+  </a>
+  {{#if me}}
+<!--    <form class="user-facts user-information__some-facts"-->
+<!--          action="/users/{{me.id}}/edit_profile"-->
+<!--    >-->
+
+      <form class="user-facts user-information__some-facts"
+            action="/profile/edit/{{me.id}}"
+      >
+      <div class="user-fact user-facts__elem">
+        <label for="lastname">Фамилия</label>
+        {{#if me.profile.lastname}}
+          <input type="text" name="lastname" id="lastname" autocomplete="off" required
+                 value="{{me.profile.lastname}}" />
+        {{else}}
+          <input type="text" name="lastname" id="lastname" autocomplete="off" required value="-" />
+        {{/if}}
+      </div>
+      <div class="user-fact user-facts__elem">
+        <label for="firstname">Имя</label>
+        {{#if me.profile.firstname}}
+          <input type="text" name="firstname" id="firstname" autocomplete="off" required
+                 value="{{me.profile.firstname}}" />
+        {{else}}
+          <input type="text" name="firstname" id="firstname" autocomplete="off" required value="-" />
+        {{/if}}
+      </div>
+      <div class="user-fact user-facts__elem">
+        <label for="surname">Отчество</label>
+        {{#if me.profile.surname}}
+          <input type="text" name="surname" id="surname" autocomplete="off" required value="{{me.profile.surname}}" />
+        {{else}}
+          <input type="text" name="surname" id="surname" autocomplete="off" required value="-" />
+        {{/if}}
+      </div>
+      <div class="user-fact user-facts__elem">
+        <label for="city">Город</label>
+        {{#if me.profile.city}}
+          <input type="text" name="city" id="city" autocomplete="off" required value="{{me.profile.city}}" />
+        {{else}}
+          <input type="text" name="city" id="city" autocomplete="off" required value="-" />
+        {{/if}}
+      </div>
+      <div class="user-fact user-facts__elem">
+        <label for="school">Школа</label>
+        {{#if me.profile.school}}
+          <input type="text" name="school" id="school" autocomplete="off" required value="{{me.profile.school}}" />
+        {{else}}
+          <input type="text" name="school" id="school" autocomplete="off" required value="-" />
+        {{/if}}
+      </div>
+      <div class="user-fact user-facts__elem">
+        <label for="university">Университет</label>
+        {{#if me.profile.university}}
+          <input type="text" name="university" id="university" autocomplete="off" required
+                 value="{{me.profile.university}}" />
+        {{else}}
+          <input type="text" name="university" id="university" autocomplete="off" required value="-" />
+        {{/if}}
+      </div>
+<!--      <div class="user-fact user-facts__elem">-->
+<!--        <label for="id"></label>-->
+<!--        {{#if me.profile.id}}-->
+<!--          <input type="hidden" name="id" id="id" autocomplete="off" required-->
+<!--                 value="{{me.profile.id}}" />-->
+<!--        {{else}}-->
+<!--          <input type="hidden" name="id" id="id" autocomplete="off" required value="-" />-->
+<!--        {{/if}}-->
+<!--      </div>-->
+      <div class="user-fact user-facts__elem">
+        <div class="save-form-item button-div">
+          <button type="submit">Сохранить</button>
+        </div>
+      </div>
+    </form>
+  {{/if}}
+</div>

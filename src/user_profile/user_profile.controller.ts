@@ -1,11 +1,12 @@
 import { Get, Post, Param, Controller, Body, UseGuards } from "@nestjs/common";
 import { UserProfileService } from "./user_profile.service";
 import { UserProfileDto } from "./dto/profile.dto";
+import { EditProfileDto } from "./dto/edit-profile.dto";
 import { SuccessResponse } from "../extra/success-response";
 import { ResponseError } from "../extra/error-response";
-import { AuthGuard } from "../auth/auth.guard";
 import { Session } from "../auth/session/session.decorator";
 import { SessionContainer } from "supertokens-node/recipe/session";
+import { AuthGuard } from "src/auth/auth.guard";
 import {
   ApiBadRequestResponse,
   ApiForbiddenResponse,
@@ -20,18 +21,20 @@ export class UserProfileController {
   constructor(private readonly profileService: UserProfileService) {
   }
 
-  @Post("/edit/:id")
-  // @UseGuards(new AuthGuard())
+  @Post("/edit/:userId")
+  @UseGuards(AuthGuard)
   @ApiOkResponse({ type: SuccessResponse })
   @ApiBadRequestResponse({ type: ResponseError })
   @ApiForbiddenResponse({ type: ResponseError })
   @ApiInternalServerErrorResponse({ type: ResponseError })
   async editProfile(
     @Session() session: SessionContainer,
-    @Param("id") id: number,
-    @Body() editedProfile: string
+    @Body() editedProfile: EditProfileDto,
+    @Param("userId") userId: number,
   ) {
-    return null;
+    editedProfile.userId = userId;
+    await this.profileService.editProfile(editedProfile);
+    return new SuccessResponse('ok');
   }
 
   @Get("/:userId")
