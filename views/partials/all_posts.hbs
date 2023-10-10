@@ -71,3 +71,37 @@
     </div>
   </div>
 </div>
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="https://cdn.socket.io/4.3.2/socket.io.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  const socket = io("{{backendGatewayURI}}", { type: ["websockets"] });
+
+  socket.on("connect", () => {
+    console.log("Connected to socket.io server");
+  });
+
+  socket.on("post", () => {
+    console.log("Connected from PostSocket");
+    createNotification();
+  });
+
+  function createNotification() {
+    toastr.options.closeButton = true;
+    toastr.options.positionClass = "toast-absolute toast-bottom-right";
+    toastr.options.timeOut = 5000;
+    toastr.success("Checkout the new post!");
+  }
+</script>
+
+<style>
+
+  #toast-container > div {
+    background-color: black;
+    border-radius: 5px;
+    box-shadow: 0 0 10px #000;
+    color: white;
+  }
+</style>
