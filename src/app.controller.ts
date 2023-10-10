@@ -75,6 +75,7 @@ export class AppController {
     const posts = await this.postService.findByUserId(curUser.id);
     return {
       add_post: true,
+      backendGatewayURI: `${process.env.BACKEND_URI}`,
       data: { posts }
     };
   }
@@ -107,7 +108,7 @@ export class AppController {
   async allPosts() {
     const posts = await this.postService.findAll();
     return {
-      data: { posts }
+      data: { posts },
     };
   }
 
